@@ -36,7 +36,6 @@
             	$_this.unbind( 'recovery', $_this.data('loading_lastevent') );
             }
             
-            console.log('ici4: %o - this: %o - %o', $_this.data('loading_backup'), this, $_this.get(0));
             var _recovery = function(p_event){
     			$_this	.unbind( p_event )
     					.empty()

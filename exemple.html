@@ -20,5 +20,12 @@
 				})(jQuery);
 			</script>
 		</div>
+		
+		<div>
+			<h2>Start/Stop Loading exemple</h2>
+			<input id="demo_start_loading" type="button" value="Start" onclick="$('#demo_loading').loading();" />
+			<input id="demo_stop_loading" type="button" value="Stop" onclick="$('#demo_loading').triggerHandler('recovery');" />
+			<div id="demo_loading">.</div>
+		</div>
 	</body>
 </html>

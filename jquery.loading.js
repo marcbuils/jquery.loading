@@ -16,14 +16,13 @@
 //    along with Kamak.  If not, see <http://www.gnu.org/licenses/>.
 
 (function($){
-    $.loading = function(){}
+    $.loading = function(){};
     $.loading.defaultOptions = {
-            src: 	'loading.gif',
-            alt: 	'Loading...',
-            css: 	{
-                		textAlign:  'center',
-                		display:    'inline'
-            		}
+            src: 'loading.gif',
+            css: {
+                textAlign:  'center',
+                display:    'inline'
+            }
     };
     
     // constructor
@@ -31,19 +30,26 @@
         var _options = $.extend({}, $.loading.defaultOptions, p_options);
         
         return this.each(function(){
-            var $this = $(this);
-            var _div = $('<div></div>');
-            var _img = $('<img />');
+            var $_this = $(this);
             
-            // div style
-            _div.css(_options.css);
+            if ( $_this.data('loading_lastevent') != undefined ){
+            	$_this.unbind( 'recovery', $_this.data('loading_lastevent') );
+            }
             
-            // Load image
-            _img.attr('src', _options.src);
-            _img.attr('alt', _options.title);
-            
-            _div.append(_img);
-            $this.html(_div);
+            console.log('ici4: %o - this: %o - %o', $_this.data('loading_backup'), this, $_this.get(0));
+            var _recovery = function(p_event){
+    			$_this	.unbind( p_event )
+    					.empty()
+    					.data('loading_backup').each(function(){
+    						$_this.append( $(this) );
+    					});
+    		};
+    		$_this	.data( 'loading_backup', $_this.contents().detach() )
+            		.empty()
+            		.append( $('<div></div>')	.css(_options.css)
+            									.append( $('<img />').attr('src', _options.src) ) )
+            		.data('loading_lastevent', _recovery )
+            		.bind('recovery', _recovery );
         });
-    }
-})(jQuery)
+    };
+})(jQuery);

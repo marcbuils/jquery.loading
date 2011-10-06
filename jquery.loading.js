@@ -28,27 +28,33 @@
     // constructor
     $.fn.loading = function(p_options) {
         var _options = $.extend({}, $.loading.defaultOptions, p_options);
-        
+
         return this.each(function(){
             var $_this = $(this);
-            
-            if ( $_this.data('loading_lastevent') != undefined ){
-            	$_this.unbind( 'recovery', $_this.data('loading_lastevent') );
-            }
-            
-            var _recovery = function(p_event){
-    			$_this	.unbind( p_event )
-    					.empty()
-    					.data('loading_backup').each(function(){
-    						$_this.append( $(this) );
-    					});
-    		};
-    		$_this	.data( 'loading_backup', $_this.contents().detach() )
-            		.empty()
-            		.append( $('<div></div>')	.css(_options.css)
-            									.append( $('<img />').attr('src', _options.src) ) )
-            		.data('loading_lastevent', _recovery )
-            		.bind('recovery', _recovery );
+
+    		if ( $_this.data('loading_currents') == undefined ){
+    			$_this	.data('loading_currents', 1)
+    					.bind('recovery', function(p_event){
+    						if ( $_this.data('loading_currents') > 0 ){
+	    						$_this.data( 'loading_currents', $_this.data('loading_currents')-1 );
+	    						
+	    						if ( $_this.data('loading_currents') == 0 ){
+						        	$_this	.empty()
+											.data('loading_backup').appendTo( $_this );
+	    						}
+    						}
+							p_event.stopPropagation();
+    					} );
+    		}else{
+    			$_this.data( 'loading_currents', $_this.data('loading_currents')+1 );
+    		}
+    		
+    		if ( $_this.data('loading_currents') == 1 ){
+    			$_this	.data( 'loading_backup', $_this.contents().detach() )
+		        		.empty()
+		        		.append( $('<div></div>')	.css(_options.css)
+		        									.append( $('<img />').attr('src', _options.src) ) );
+		    }
         });
     };
 })(jQuery);

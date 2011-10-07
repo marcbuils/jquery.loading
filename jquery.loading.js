@@ -48,13 +48,13 @@
     		}else{
     			$_this.data( 'loading_currents', $_this.data('loading_currents')+1 );
     		}
-    		
+
     		if ( $_this.data('loading_currents') == 1 ){
-    			$_this	.data( 'loading_backup', $_this.contents().detach() )
-		        		.empty()
-		        		.append( $('<div></div>')	.css(_options.css)
-		        									.append( $('<img />').attr('src', _options.src) ) );
+    			$_this	.data( 'loading_backup', $_this.contents().detach() );
 		    }
+    		$_this	.empty()
+    				.append( $('<div></div>')	.css(_options.css)
+    											.append( $('<img />').attr('src', _options.src) ) );
         });
     };
 })(jQuery);

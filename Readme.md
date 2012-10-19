@@ -9,7 +9,7 @@ Loading est un plugin jQuery qui permet d'afficher une image de loading pendant 
 LGPL v3
 
 ###Options par défaut
-’’’javascript	
+```javascript	
 $.loading.defaultOptions = {
     src:  'loading.gif',     // chemin de l'image
     alt:  'Loading...',      // texte 'alt' de l'image
@@ -18,21 +18,21 @@ $.loading.defaultOptions = {
         display:    'inline'
     }
 };
-’’’
+```
 
 ###Exemple de modification des options par défaut
-’’’javascript
+```javascript
 $.loading.defaultOptions = $.extend({}, $.loading.defaultOptions, {
            src: 'images/mon_image.gif'
 });
-’’’
+```
 
 ###Utilisation
-’’’	
+```	
 .loading( );
 /* ou */
 .loading({ /* [options] */ });
-’’’
+```
 
 ###Demo
 http://www.marcbuils.fr/2010/07/loading-plugin-jquery-qui-affiche-une.html
